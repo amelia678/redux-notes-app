@@ -1,4 +1,6 @@
 const {createStore} = require('redux');
+const uuid = require('uuid/v4');
+
 // ===========================================
 // SETUP
 // ===========================================
@@ -6,30 +8,62 @@ const {createStore} = require('redux');
 
 
     const defaultState = {
-    note: {
-        content: ''
-        }
+        notes : [
+            {
+                id: uuid(),
+                content: ''
+            }
+        ]
+        
     }
-
 
 
 // #2 list out all the changes you could make to state
 
 /*
 -UPDATE CONTENT
+-ADD_NOTE
+-DELETE_NOTE
 */
 
 const ACTION_UPDATE = {
     type: 'ACTION_UPDATE',
     content: '???????'
+    // id: ???
+};
+
+
+const ACTION_ADD = {
+    type: 'ACTION_ADD',
+    // content: ????
 }
 
+const ACTION_DEL = {
+    type: 'ACTION_DEL',
+    // id: ??????
+}
 
 // #3 -write action creator functions
-const updateContent = (content) => {
+const updateContent = (id, content) => {
     return {
         ...ACTION_UPDATE,
+        id,
         content
+    }
+}
+
+const addNote = (content) => {
+    return {
+        ...ACTION_ADD,
+        content
+    }
+}
+
+const deleteNote = (id, content) => {
+    return {
+        ...ACTION_DEL,
+        id 
+        
     }
 }
 
@@ -53,5 +87,9 @@ const note = (state=defaultState, action) => {
 // #5 create a store that uses your reducer
 const store = createStore(note);
 
-module.exports= store;
+// export store and action creators
+module.exports= {
+    store,
+    updateContent
+};
 
