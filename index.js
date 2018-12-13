@@ -1,6 +1,8 @@
 const {
     store,
-    updateContent
+    updateNote,
+    addNote,
+    deleteNote
  } = require('./store');
 
 // ===========================================
@@ -18,9 +20,10 @@ store.subscribe(() => {
 })
 
 
-store.dispatch(updateContent('buy some milk'));
-store.dispatch(updateContent('feed the cat'));
-store.dispatch(updateContent('eat my feelings'));
-store.dispatch(updateContent('rule the interwebs'));
-store.dispatch(updateContent('join a cult'));
-store.dispatch(updateContent('buy la croix'));
+store.dispatch(addNote('buy some milk'));
+store.dispatch(addNote('feed the cat'));
+store.dispatch(addNote('eat my feelings'));
+store.dispatch(addNote('rule the interwebs'));
+store.dispatch(addNote('join a cult'));
+store.dispatch(addNote('buy la croix'));
+

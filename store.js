@@ -44,7 +44,7 @@ const ACTION_DEL = {
 }
 
 // #3 -write action creator functions
-const updateContent = (id, content) => {
+const updateNote = (id, content) => {
     return {
         ...ACTION_UPDATE,
         id,
@@ -75,9 +75,46 @@ const note = (state=defaultState, action) => {
         case ACTION_UPDATE.type:
         // do somethin
             return {
-                note: {
+                notes: state.notes.map(note => {
+                    if (note.id === action.id) {
+                        return {
+                            ...note,
+                            // alternative to spread operator
+                            // id: note.id,
+                            // content: note.content,
+
+                            // immediately overwrite content with what
+                            // came in through the action
+                            content: action.content
+                        }
+                    } else {
+                        // this is not the one
+                        // return original
+
+
+                        return {
+                            ...note
+                        };
+                    }
+                })
+            
+            }
+
+        case ACTION_ADD.type:
+        return {
+            notes: [
+                ...state.notes,
+                {
+                    id: uuid(),
                     content: action.content
                 }
+            ]
+        }
+        case ACTION_DEL.type:
+            return {
+                notes: state.notes.filter(note => {
+                    return note.id !== action.id;
+                })
             }
         default:
             return state;
@@ -90,6 +127,8 @@ const store = createStore(note);
 // export store and action creators
 module.exports= {
     store,
-    updateContent
+    updateNote,
+    addNote,
+    deleteNote
 };
 
